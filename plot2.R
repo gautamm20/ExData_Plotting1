@@ -8,8 +8,9 @@ data <- read.table("household_power_consumption.txt", sep = ";", skip = 66637, n
 data <- data %>% mutate(V1 = as.POSIXct(dmy_hms(as.character(paste(V1, V2)))),
                         V3 = as.numeric(as.character(V3))) %>% select(V1,V3)
 
+#setting up write to png (quartz is added since this has been run on a mac machine)
+png(filename = "plot2.png", width=480, height=480, units="px", type="quartz")
 # using with to make it more readable to plot the graph
 with(data, plot(V1,V3, type="l", xlab = "", ylab = "Global Active Power (kilowatts)"))
 
-#export to png (quartz is added since this has been run on a mac machine)
-png(filename = "plot2.png", width=480, height=480, units="px", type="quartz")
+dev.off()
